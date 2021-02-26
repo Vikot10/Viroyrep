@@ -1,0 +1,186 @@
+include<iostream>
+#include<math.h>
+#include <ctime>
+#include<stdlib.h>
+#include<stdio.h>
+#include<locale.h>
+
+
+struct students {
+    char sername[20];
+    int course;
+    int ochenka1,ochenka2,ochenka3;
+}; 
+
+void input1(students *mas,int kol1)
+{
+   for(int i=0;i<kol1;i++) {
+      printf("èìÿ %d ñòóäåíòà= ",i);
+      scanf("%s",&mas[i].sername);
+      do {
+      	printf("êóðñ %d ñòóäåíòà= ",i);
+      	scanf("%d",&mas[i].course);
+	  } while(mas[i].course<=0);
+      printf("îöåíêè %d ñòóäåíòà îò 2 äî 5: \n",i);
+      do {
+      	printf("ïåðâàÿ îöåíêà :");
+      	scanf("%d",&mas[i].ochenka1);
+	  } while(mas[i].ochenka1!=2 && mas[i].ochenka1!=3 && mas[i].ochenka1!=4 && mas[i].ochenka1!=5);
+      do {
+      	 printf("âòîðàÿ îöåíêà :");
+	 	 scanf("%d",&mas[i].ochenka2);
+	  } while(mas[i].ochenka2!=2 && mas[i].ochenka2!=3 && mas[i].ochenka2!=4 && mas[i].ochenka2!=5);
+      do {
+	    printf("òðåòüÿ îöåíêà :");
+	  	scanf("%d",&mas[i].ochenka3);
+	 } while(mas[i].ochenka3!=2 && mas[i].ochenka3!=3 && mas[i].ochenka3!=4 && mas[i].ochenka3!=5);
+   }
+}
+
+void input2(students *mas,int kol)
+{
+	int A,B,rond;
+
+   srand (time (NULL));
+   do {
+   	printf("ââåäåíèå íà÷àëüíûõ ïðåäåëîâ ðàíäîìà =");
+   	scanf("%d",&A);
+   	printf("ââåäåíèå êîíå÷íûõ ïðåäåëîâ ðàíäîìà =");
+   	scanf("%d",&B);
+   } while(A>=B);
+    for(int i=0;i<kol;i++){
+   		printf("èìÿ %d ñòóäåíòà= ",i);
+   		scanf("%s",&mas[i].sername);
+   	 	printf("êóðñ %d ñòóäåíòà= ",i);
+   	 	mas[i].course=rand()%(B-A+1)+A;
+   	 	if (mas[i].course<=0) mas[i].course=-mas[i].course;
+   	 	printf("%d\n ",mas[i].course);
+   	 	printf("îöåíêè %d ñòóäåíòà: \n ïåðâàÿ îöåíêà :",i);
+   	 	mas[i].ochenka1=rand()%(4)+2;
+   	 	printf("%d\n",mas[i].ochenka1);
+      	printf("âòîðàÿ îöåíêà :");
+      	mas[i].ochenka2=rand()%(4)+2;
+      	printf("%d\n",mas[i].ochenka2);
+      	printf("òðåòüÿ îöåíêà :");
+      	mas[i].ochenka3=rand()%(4)+2;
+     	printf("%d\n",mas[i].ochenka3);
+	}
+}
+
+void input3(students *mas,int kol4)
+{
+	FILE *fin;
+	fin=fopen("21.txt","r");
+	if (!fin) printf("Error!\n");
+		else {
+			for (int i=0;i<kol4;i++){
+			fscanf(fin, "%s", &mas[i].sername);
+			printf("%s ",mas[i].sername);
+			fscanf(fin, "%d", &mas[i].course);
+			printf("%d ",mas[i].course);
+			fscanf(fin, "%d", &mas[i].ochenka1);
+			printf("%d ",mas[i].ochenka1);
+			fscanf(fin, "%d", &mas[i].ochenka2);
+			printf("%d ",mas[i].ochenka2);
+			fscanf(fin, "%d", &mas[i].ochenka3);
+			printf("%d ",mas[i].ochenka3);
+			}
+    	}
+	fclose(fin);
+}
+void output1(students *mas,int kol)
+{
+   for(int i=0;i<kol;i++){
+	printf("èìÿ %d ñòóäåíòà= ",i);
+	printf("%s\n",mas[i].sername);
+	printf("êóðñ %d ñòóäåíòà= ",i);
+	printf("%d\n",mas[i].course);
+	printf("îöåíêè %d ñòóäåíòà: \n ïåðâàÿ îöåíêà :",i);
+	printf("%d\n",mas[i].ochenka1);
+	printf("âòîðàÿ îöåíêà :");
+	printf("%d\n",mas[i].ochenka2);
+	printf("òðåòüÿ îöåíêà :");
+	printf("%d\n",mas[i].ochenka3);
+	}
+}
+
+void output2(students *mas,int kol5)
+{
+	FILE *fin;
+	fin=fopen("22.txt","w");
+	for (int i=0;i<kol5;i++){
+		fprintf(fin, "%s\n", mas[i].sername);
+		fprintf(fin, "%d\n", mas[i].course);
+		fprintf(fin, "%d\n", mas[i].ochenka1);
+		fprintf(fin, "%d\n", mas[i].ochenka2);
+		fprintf(fin, "%d\n", mas[i].ochenka3);
+	}
+	fclose(fin);
+}
+
+void uspev(students *mas,int kol) 
+{
+	int tridva=0;
+	double kachestvo;
+	for (int i=0;i<kol;i++){
+		if (mas[i].ochenka1==2 || mas[i].ochenka1==3 ) {
+			tridva++;
+			continue;
+		}
+		if (mas[i].ochenka2==2 || mas[i].ochenka2==3 ) {
+			tridva++;
+			continue;
+		}
+		if (mas[i].ochenka3==2 || mas[i].ochenka3==3 ) {
+			tridva++;
+			continue;
+		}
+	}
+	kachestvo=((double)tridva/kol)*100;
+	printf(" \n ïðîöåíò ó÷åíèêîâ ñ 2-3 = %lf",kachestvo);
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+   int kol,choose,konec=1;
+   students mas[100];
+   do{
+   		do{
+      		printf("ââåäèòå êîë-âî ýëåìåíòîâ = ");
+      		scanf("%d",&kol);
+   		  } while(kol<2);
+   
+   		do {
+      		printf("\n 1- êëàâà 2- ñëó÷àéíî 3- ñ ôàéëà  ");
+      		scanf("%d",&choose);
+  		 } while(choose!=1 && choose!=2 && choose!=3);
+
+   		switch(choose)
+  		 {
+     		  case 1: input1(mas,kol);
+     		   break;
+		      case 2: input2(mas,kol);
+		       break;
+		      case 3: input3(mas,kol);
+		       break;
+		   }
+		
+		uspev(mas,kol);
+		
+		   do {
+		   	printf("\n âûâîä ìàññèâà: íàæìèòå 1 - äëÿ âûâîäà íà ýêðàí, íàæìèòå 2 - äëÿ âûâîäà â ôàéë; âûáðàíî:");
+		   	scanf("%d",&choose);
+		   } while (choose!=1 && choose!=2);
+		   
+		   switch(choose)
+		   {
+		   	case(1): output1(mas,kol);
+		   	case(2): output2(mas,kol); 
+		   }
+		   printf("äëÿ âûõîäà íàæìèòå 0 , äëÿ ïðîäîëæåíèÿ ÷òî óãîäíî");
+		   scanf("%d",&konec);
+	} while(konec!=0);
+
+		   return 0;
+}
